@@ -19,6 +19,7 @@ public class GroundMeshSetup : MonoBehaviour
     PerlinGeneration PG;
     Texture2D texture;
     public bool drawNow;
+    MyVector3 curLargestHeightPos;
 
     void Start()
     {
@@ -30,11 +31,13 @@ public class GroundMeshSetup : MonoBehaviour
     {
         if (drawNow)
         {
+            Destroy(GameObject.Find("High Point(Clone)"));
             draw();
             UpdateMesh();
             texture = PG.returnTexture();
             GetComponent<Renderer>().material.mainTexture = texture;
             texture.Apply();
+            Instantiate(heightPoint,new Vector3(curLargestHeightPos.x,curLargestHeightPos.y * 1.2f,curLargestHeightPos.z), new Quaternion(0,0,0,0)); //replace hard coded number
             drawNow = false;
         }
     }
@@ -45,11 +48,18 @@ public class GroundMeshSetup : MonoBehaviour
         int zSize = heightMap.GetLength(1);
         int i = 0;
         vertices = new MyVector3[xSize * zSize];
+        float curLargestHeight = 0;
         for (int z = 0; z < zSize; z++)
         {
             for (int x = 0; x < xSize; x++)
             {
                 vertices[i] = new MyVector3(x, heightMap[x, z], z);
+                if(heightMap[x, z] > curLargestHeight)
+                {
+                    curLargestHeight = heightMap[x, z];
+                    curLargestHeightPos = new MyVector3(x,curLargestHeight,z);
+                    Debug.Log(curLargestHeight);
+                }
                 i++;
             }
         }
