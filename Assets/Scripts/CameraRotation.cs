@@ -33,6 +33,8 @@ public class CameraRotation : MonoBehaviour
             transform.position = pos;
 
             transform.LookAt(gms.centreOfMesh.convToVec3());
+            //Vector3 angleToLook = MyMath.EulerAngToDir(gms.centreOfMesh - new MyVector3(transform.position)).convToVec3();
+            //transform.rotation = Quaternion.Euler(angleToLook.x, angleToLook.y, angleToLook.z);
 
             angle += speed * Time.deltaTime;
         }
@@ -57,4 +59,24 @@ public class CameraRotation : MonoBehaviour
         transform.position = new Vector3(0,10,0);
         transform.rotation = new Quaternion(0.70711f,0,0,0.70711f);
     }
+
+    //void camRot(float ang)
+    //{
+    //    MyMatrix4by4 rollMatrix = new MyMatrix4by4(
+    //        new MyVector3(Mathf.Cos(ang), Mathf.Sin(ang), 0),
+    //        new MyVector3(-Mathf.Sin(ang), Mathf.Cos(ang), 0),
+    //        new MyVector3(0, 0, 1),
+    //        new MyVector3(0, 0, 0));
+    //    MyMatrix4by4 pitchMatrix = new MyMatrix4by4(
+    //        new MyVector3(1, 0, 0),
+    //        new MyVector3(Mathf.Cos(ang), Mathf.Sin(ang), 0),
+    //        new MyVector3(-Mathf.Sin(ang), Mathf.Cos(ang), 0),
+    //        new MyVector3(0, 0, 0));
+    //    MyMatrix4by4 yawMatrix = new MyMatrix4by4(
+    //        new MyVector3(Mathf.Cos(ang), Mathf.Sin(ang), 0),
+    //        new MyVector3(0, 1, 0),
+    //        new MyVector3(-Mathf.Sin(ang), Mathf.Cos(ang), 0),
+    //        new MyVector3(0, 0, 0));
+    //    MyVector3 rolledVert = rollMatrix * new MyVector3(0, 0, 0);
+    //}
 }

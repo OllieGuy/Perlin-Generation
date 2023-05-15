@@ -91,7 +91,7 @@ public class PerlinGeneration : MonoBehaviour
         float dot00 = MyVector2.DotProduct(generateVectorFromCorner(cellX, cellY),          new MyVector2(thisVec - new MyVector2(cellX, cellY)),           false);
         float dot01 = MyVector2.DotProduct(generateVectorFromCorner(cellX, cellY + 1),      new MyVector2(thisVec - new MyVector2(cellX, cellY + 1)),       false);
         float dot10 = MyVector2.DotProduct(generateVectorFromCorner(cellX + 1, cellY),      new MyVector2(thisVec - new MyVector2(cellX + 1, cellY)),       false);
-        float dot11 = MyVector2.DotProduct(generateVectorFromCorner(cellX + 1, cellY + 1),  new MyVector2(thisVec - new MyVector2(cellX + 1, cellY + 1)), false);
+        float dot11 = MyVector2.DotProduct(generateVectorFromCorner(cellX + 1, cellY + 1),  new MyVector2(thisVec - new MyVector2(cellX + 1, cellY + 1)),   false);
 
         float fx = MyMath.smoothStep(x - cellX);
         float fy = MyMath.smoothStep(y - cellY);
@@ -123,6 +123,30 @@ public class PerlinGeneration : MonoBehaviour
 
     public Texture2D returnTexture()
     {
+        return texture;
+    }
+
+    public Texture2D returnColourTexture(TerrainType[] terrain)
+    {
+        float[,] heightMap = returnHeightMap();
+        int xSize = heightMap.GetLength(0);
+        int zSize = heightMap.GetLength(1);
+        Texture2D texture = new Texture2D(xSize, zSize);
+        for (int x = 0; x < xSize; x++)
+        {
+            for (int z = 0; z < zSize; z++)
+            {
+                Color color = Color.red;
+                for (int i = 1; i < terrain.Length; i++)
+                {
+                    if (heightMap[z, x] >= terrain[i - 1].height && heightMap[z, x] <= terrain[i].height)
+                    {
+                        color = terrain[i].color;
+                    }
+                    texture.SetPixel(z, x, color);
+                }
+            }
+        }
         return texture;
     }
 }

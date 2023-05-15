@@ -61,7 +61,6 @@ public class MyMatrix4by4
         values[2, 3] = col4.z;
         values[3, 3] = 1;
     }
-
     public static MyVector4 operator *(MyMatrix4by4 lhs, MyVector4 rhs)
     {
         MyVector4 rv = new MyVector4(0, 0, 0, 0);
@@ -93,7 +92,6 @@ public class MyMatrix4by4
 
         return rm;
     }
-
     public MyMatrix4by4 TranslationInverse()
     {
         MyMatrix4by4 rm = Identity;
@@ -104,7 +102,6 @@ public class MyMatrix4by4
         }
         return rm;
     }
-
     public MyMatrix4by4 scale(MyVector3 s)
     {
         MyMatrix4by4 rm = Identity;
@@ -113,7 +110,6 @@ public class MyMatrix4by4
         rm.values[2, 2] = values[2, 2] * s.z;
         return rm;
     }
-
     public MyMatrix4by4 translate(MyVector3 s)
     {
         MyMatrix4by4 rm = Identity;

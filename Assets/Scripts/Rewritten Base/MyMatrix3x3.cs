@@ -29,7 +29,6 @@ public class MyMatrix3by3
         values[1, 2] = col3.y;
         values[2, 2] = col3.z;
     }
-
     public static MyVector3 operator *(MyMatrix3by3 lhs, MyVector3 rhs)
     {
         MyVector3 rv = new MyVector3(0, 0, 0);
@@ -60,7 +59,6 @@ public class MyMatrix3by3
 
         return rm;
     }
-
     public MyMatrix3by3 TranslationInverse()
     {
         MyMatrix3by3 rm = Identity;
@@ -71,7 +69,6 @@ public class MyMatrix3by3
         }
         return rm;
     }
-
     public MyMatrix3by3 scale(MyVector3 s)
     {
         MyMatrix3by3 rm = Identity;
@@ -80,7 +77,6 @@ public class MyMatrix3by3
         rm.values[2, 2] = values[2, 2] * s.z;
         return rm;
     }
-
     public MyMatrix3by3 translate(MyVector3 s)
     {
         MyMatrix3by3 rm = Identity;

@@ -16,7 +16,6 @@ public class MyVector2
         this.x = a.x;
         this.y = a.y;
     }
-
     public static MyVector2 Subtract(MyVector2 a, MyVector2 b)
     {
         MyVector2 rv = new MyVector2(0, 0);

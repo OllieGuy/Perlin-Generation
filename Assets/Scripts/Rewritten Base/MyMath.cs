@@ -20,12 +20,10 @@ public class MyMath
         rv = (inputNumberA * (1 - lerpVal)) + (inputNumberB * lerpVal);
         return rv;
     }
-
     public static float smoothStep(float val)
     {
         return val * val * (3f - 2f * val);
     }
-
     public static MyVector3 EulerAngToDir(MyVector3 a)
     {
         MyVector3 rv = new MyVector3(0, 0, 0);

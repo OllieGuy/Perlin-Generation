@@ -20,6 +20,7 @@ public class GroundMeshSetup : MonoBehaviour
     Texture2D texture;
     public bool drawNow;
     MyVector3 curLargestHeightPos;
+    public TerrainType[] regions;
 
     void Start()
     {
@@ -34,10 +35,19 @@ public class GroundMeshSetup : MonoBehaviour
             Destroy(GameObject.Find("High Point(Clone)"));
             draw();
             UpdateMesh();
-            texture = PG.returnTexture();
+            //texture = PG.returnTexture();
+            TerrainType[] regionsScaled = new TerrainType[regions.Length];
+            for (int i = 0; i< regions.Length; i++)
+            {
+                regionsScaled[i].name = regions[i].name;
+                regionsScaled[i].height = regions[i].height * curLargestHeightPos.y;
+                regionsScaled[i].color = regions[i].color;
+            }
+            texture = PG.returnColourTexture(regionsScaled);
             GetComponent<Renderer>().material.mainTexture = texture;
+            texture.filterMode = FilterMode.Point;
             texture.Apply();
-            Instantiate(heightPoint,new Vector3(curLargestHeightPos.x,curLargestHeightPos.y * 1.2f,curLargestHeightPos.z), new Quaternion(0,0,0,0)); //replace hard coded number
+            Instantiate(heightPoint,new Vector3(curLargestHeightPos.x,curLargestHeightPos.y * 1.2f,curLargestHeightPos.z), new Quaternion(0,0,0,0));
             drawNow = false;
         }
     }
@@ -58,7 +68,6 @@ public class GroundMeshSetup : MonoBehaviour
                 {
                     curLargestHeight = heightMap[x, z];
                     curLargestHeightPos = new MyVector3(x,curLargestHeight,z);
-                    Debug.Log(curLargestHeight);
                 }
                 i++;
             }

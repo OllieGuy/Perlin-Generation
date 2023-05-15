@@ -31,25 +31,7 @@ public class PerlinImage : MonoBehaviour
         }
         if (GenColourMap)
         {
-            float[,] heightMap = PG.returnNormalisedHeightMap();
-            int xSize = heightMap.GetLength(0);
-            int zSize = heightMap.GetLength(1);
-            Texture2D texture = new Texture2D(xSize, zSize);
-            for (int x = 0; x < xSize; x++)
-            {
-                for (int z = 0; z < zSize; z++)
-                {
-                    Color color = Color.red;
-                    for (int i = 1; i < regions.Length; i++)
-                    {
-                        if (heightMap[z, x] >= regions[i-1].height && heightMap[z, x] <= regions[i].height)
-                        {
-                            color = regions[i].color;
-                        }
-                        texture.SetPixel(z, x, color);
-                    }
-                }
-            }
+            texture = PG.returnColourTexture(regions);
             texture.filterMode = FilterMode.Point;
             GetComponent<Renderer>().material.mainTexture = texture;
             texture.Apply();
